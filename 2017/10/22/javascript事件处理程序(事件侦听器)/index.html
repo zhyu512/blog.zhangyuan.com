@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="今天说一下javascript 事件处理程序也叫事件侦听器,什么是事件处理程序？那首先，什么是事件？事件就是用户或者浏览器自身执行的某种动作，如：click、load等都是事件的名字。而响应时间的函数就叫做事件处理程序，如：onclick，onload">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript事件处理程序(事件侦听器)">
+<meta property="og:url" content="http://yoursite.com/2017/10/22/javascript事件处理程序(事件侦听器)/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="今天说一下javascript 事件处理程序也叫事件侦听器,什么是事件处理程序？那首先，什么是事件？事件就是用户或者浏览器自身执行的某种动作，如：click、load等都是事件的名字。而响应时间的函数就叫做事件处理程序，如：onclick，onload">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-23T14:18:46.218Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript事件处理程序(事件侦听器)">
+<meta name="twitter:description" content="今天说一下javascript 事件处理程序也叫事件侦听器,什么是事件处理程序？那首先，什么是事件？事件就是用户或者浏览器自身执行的某种动作，如：click、load等都是事件的名字。而响应时间的函数就叫做事件处理程序，如：onclick，onload">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/22/javascript事件处理程序(事件侦听器)/"/>
+
+
+
+
+
+  <title>javascript事件处理程序(事件侦听器) | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/22/javascript事件处理程序(事件侦听器)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript事件处理程序(事件侦听器)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-22T11:08:23+08:00">
+                2017-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天说一下javascript 事件处理程序也叫事件侦听器,什么是事件处理程序？那首先，什么是事件？事件就是用户或者浏览器自身执行的某种动作，如：click、load等都是事件的名字。而响应时间的函数就叫做事件处理程序，如：onclick，onload<br><a id="more"></a></p>
+<h2 id="添加事件处理程序的方法"><a href="#添加事件处理程序的方法" class="headerlink" title="添加事件处理程序的方法"></a>添加事件处理程序的方法</h2><p>为元素添加事件处理程序有多种方法：</p>
+<h4 id="一、在元素上添加，如："><a href="#一、在元素上添加，如：" class="headerlink" title="一、在元素上添加，如："></a>一、在元素上添加，如：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input type=&quot;button&quot; value=&quot;clickMe&quot; onclick=&quot;alert(value)&quot;/&gt;  //这里用的是value而不是this.value,当然用this.value也是可以的，this指的是目标元素本身</div></pre></td></tr></table></figure>
+<p>这种方法的<code>优点</code>在于他拓展作用域的方式，在函数内部可以直接访问document以及元素本身的属性。如下代码，点击按钮会弹出输入框中的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;form&gt;</div><div class="line">	&lt;input type=&quot;text&quot; name=&quot;userName&quot;/&gt;</div><div class="line">	&lt;input type=&quot;button&quot; value=&quot;userName&apos;s value&quot; onclick=&quot;alert(userName.value)&quot;/&gt; </div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure></p>
+<p><code>缺点</code>在于：<br>    1、会有时差问题，因为很多时候侦听器要处理的并不是简单的一个语句，而是一个功能，如果点击时页面还没有加载完成点击时要执行的函数，那么就会报错。这样我们可以把他邓庄到一个try-catch块中来捕捉错误，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input type=&quot;button&quot; value=&quot;userName&apos;s value&quot; onclick=&quot;try&#123;sth();&#125;catch(ex)&#123;&#125;&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p>2、可能会有兼容问题<br>3、html与javascript紧密耦合，不利于维护。</p>
+<h4 id="二、为元素指定事件处理程序："><a href="#二、为元素指定事件处理程序：" class="headerlink" title="二、为元素指定事件处理程序："></a>二、为元素指定事件处理程序：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;form&gt;</div><div class="line">	&lt;input type=&quot;text&quot; name=&quot;userName&quot; id=&quot;userName&quot;/&gt;</div><div class="line">	&lt;input type=&quot;button&quot; value=&quot;clickMe&quot; id=&quot;button&quot; /&gt; </div><div class="line">&lt;/form&gt;</div><div class="line">var btn = document.getElementById(&quot;button&quot;);</div><div class="line">var userName = document.getElementById(&quot;userName&quot;);</div><div class="line"></div><div class="line">btn.onclick = function()&#123;</div><div class="line">	alert(userName.value);  //userName&apos;s value  这时要想获取userName的value必须取得userName的引用</div><div class="line">	alert(this.value);    //这里的this指的是当前点击的元素</div><div class="line">&#125;</div><div class="line">btn.onclick = function()&#123;	//如果为btn绑定多次click事件的话只识别最后一次</div><div class="line">	alert(1);						</div><div class="line">&#125;</div><div class="line">//btn.onclick = null    //取消注释之后将删除btn的click事件，即点击btn将不再有任何反应</div></pre></td></tr></table></figure>
+<p>这种方法的<code>优点</code>在于1、绑定简单2、不会有浏览器兼容问题<br><code>缺点</code>在于当需要操作的元素很多时，对DOM的操作太多，函数太多会占用内存，影响网站的性能</p>
+<h4 id="三、addEventListener-："><a href="#三、addEventListener-：" class="headerlink" title="三、addEventListener()："></a>三、addEventListener()：</h4><p>addEvenetListener()接受三个参数：1、事件名，如click<code>注意不是onclick</code> 2、执行函数 3、true or false(true表示在事件捕获阶段调用，false表示在事件冒泡阶段调用)。特别说明：<code>不建议在事件捕获阶段调用，也就是不建议使用true,除非特别需要，因为会有兼容问题</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;input type=&quot;button&quot; value=&quot;clickMe&quot; id=&quot;button&quot; /&gt; </div><div class="line"></div><div class="line">var btn = document.getElementById(&quot;button&quot;);</div><div class="line">btn.addEventListener(&apos;click&apos;,function(e)&#123;</div><div class="line">	var target = e.target || e.srcElement;</div><div class="line">	console.log(target);</div><div class="line">&#125;,false);</div><div class="line">btn.addEventListener(&apos;click&apos;,sth,false);     //用addEventListener()指定事件时可以指定多次</div><div class="line">//btn.removeEventListener(&apos;click&apos;,sth,false);//removeEventListener()传入相同的参数可以解除绑定，注意：匿名函数是无法解绑的</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/23/javascript事件代理（事件委托）/" rel="prev" title="javascript事件代理（事件委托）">
+                javascript事件代理（事件委托） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加事件处理程序的方法"><span class="nav-number">1.</span> <span class="nav-text">添加事件处理程序的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、在元素上添加，如："><span class="nav-number">1.0.1.</span> <span class="nav-text">一、在元素上添加，如：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、为元素指定事件处理程序："><span class="nav-number">1.0.2.</span> <span class="nav-text">二、为元素指定事件处理程序：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、addEventListener-："><span class="nav-number">1.0.3.</span> <span class="nav-text">三、addEventListener()：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
